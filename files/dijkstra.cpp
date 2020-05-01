@@ -1,3 +1,4 @@
+// O( (E+V) log V)
 using len_type=ll;
 
 struct Edge {int to;len_type cost;};

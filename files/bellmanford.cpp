@@ -1,3 +1,4 @@
+// O(EV) negative edge OK
 struct Edge {
     int to, cost;
 
