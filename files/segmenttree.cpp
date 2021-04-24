@@ -1,27 +1,27 @@
-int lg2(int n){
-  REPR(i,31){
-    if(n&bit(i)){
-      return i;
-    }
-  }
-  return -1;
-}
-int min_2pow(int n){
-  int l=lg2(n);
-  if(bit(l)<n)l++;
-  return bit(l);
-}
 template<typename T>
 struct segtree{
+  static int lg2(int n) {
+    REPR(i,31){
+      if(n&bit(i)){
+        return i;
+      }
+    }
+    return -1;
+  }
+  static int min_2pow(int n){
+    int l=lg2(n);
+    if(bit(l)<n)l++;
+    return bit(l);
+  }
   int size;
   vector<T> tree;
   function<T(T,T)> func;
   T unit;
   segtree(int n, function<T(T,T)> func, T unit): func(func), unit(unit){
     size=min_2pow(n);
-    tree=vector<T>(2*size-1, unit);
+    tree.resize(2*size-1, unit);
   }
-  
+
   void put(int pos, const T&value){
     tree[size-1+pos]=value;
   }
@@ -53,7 +53,7 @@ void resolve(int pos){
     }
     int child1=_search_node*2+1;
     int child2=child1+1;
-    
+
     return func(get(start,end,child1), get(start,end,child2));
   }
 };
