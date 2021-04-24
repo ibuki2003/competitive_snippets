@@ -41,7 +41,7 @@ template<class T,class U>pair<T,U> operator-(const pair<T,U>&a){return {-a.F, -a
 template<class T,class U>double norm(const pair<T,U>&p){return norm(p.F)+norm(p.S);}template<class T,class U>double abs(const pair<T,U>&p){return sqrt(norm(p));}
 
 int main(){
-    cin.tie(0);ios::sync_with_stdio(0);
-    cout<<fixed<<setprecision(10);
-    
+  cin.tie(0);ios::sync_with_stdio(0);
+  cout<<fixed<<setprecision(10);
+  
 }
