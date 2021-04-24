@@ -1,53 +1,50 @@
-template<ll MODULO=MOD> // modulo should be prime
+template<ll M=MOD>
 class mint{
-    static_assert(MODULO>0, "modulo should be positive");
+  constexpr static bool is_prime(ll n) {
+    if (n == MOD) return true;
+    for (ll i = 2; i * i <= n; ++i) if (n % i == 0) return false;
+    return true;
+  }
+  static_assert(M>0, "modulo should be positive");
+  static_assert(is_prime(M), "modulo should be a prime number");
 private:
-    ll a;
-    constexpr static ll _nl(const ll&a){return a>=0?a%MODULO:MODULO-(-a-1)%MODULO-1;}
+  ll a;
+  inline constexpr static ll _nl(const ll&a){return (a%M+M)%M;}
 public:
-    constexpr static ll phi() {
-        ll ans=MODULO;
-        ll nn=MODULO;
-        for (ll x = 2; x*x <= nn; ++x) {
-            if (nn % x == 0) {
-                ans -= ans / x;
-                while (nn % x == 0) nn /= x;
-            }
-        }
-        if (nn > 1) ans -= ans / nn;
-        return ans;
-    }
-    mint():a(0){}
-    mint(const ll&a):a(_nl(a)){}
-    mint(const mint&o):a((ll)o){}
+  mint():a(0){}
+  mint(const ll&a):a(_nl(a)){}
+  mint(const mint&o):a((ll)o){}
 
-    inline mint&operator=(const ll&o){a=_nl(o);return*this;};
-    inline operator ll()const{return a;}
-    inline operator bool()const{return (bool)a;}
+  inline mint&operator=(const ll&o){a=_nl(o);return*this;};
+  inline operator ll()const{return a;}
+  inline operator bool()const{return (bool)a;}
 
-    inline mint&operator+=(const ll&o){a=_nl(a+_nl(o));return*this;};
-    inline mint&operator-=(const ll&o){a=_nl(a+_nl(-o));return*this;};
-    inline mint&operator*=(const ll&o){a=_nl(a*_nl(o));return*this;};
-    inline mint&operator/=(const ll&o){a=_nl(a*_nl(phi()-_nl(o)));}
-    inline mint&operator%=(const ll&o){a=_nl(a%_nl(o));return*this;};
-    inline mint&operator^=(const mint<phi()>&o){
-        if(o==0)a=1;
-        if(o<=1)return*this;
-        ll aa=a;
-        *this^=(o/2);
-        if(o%2)*this*=aa;
-        return*this;
-    }
+  inline mint&operator+=(ll o){a = _nl(a + _nl(o));return *this;};
+  inline mint&operator-=(ll o){a = _nl(a - _nl(o));return *this;};
+  inline mint&operator*=(ll o){a = _nl(a * _nl(o));return *this;};
+  inline mint&operator/=(const mint<M>&o){return *this *= o.inv();}
 
-    const mint operator+(const ll&o)const{mint b(a);return b+=o;}
-    const mint operator-(const ll&o)const{mint b(a);return b-=o;}
-    const mint operator*(const ll&o)const{mint b(a);return b*=o;}
-    const mint operator/(const ll&o)const{mint b(a);return b/=o;}
-    const mint operator%(const ll&o)const{mint b(a);return b%=o;}
-    const mint operator^(const ll&o)const{mint b(a);return b^=o;}
+  mint&operator^=(ll o) {
+    o %= MOD - 1;
+    if (o == 0) {a = 1; return *this;}
+    if (o == 1) return *this;
+    ll aa = a;
+    *this ^= (o/2);
+    a = _nl(a * a);
+    if (o % 2) *this *= aa;
+    return *this;
+  }
 
-    inline const mint operator+()const{return *this;}
-    inline const mint operator-()const{return mint(-a);}
+  const mint inv() const {return *this ^ (M - 2);}
+
+  const mint operator+(ll o) const {mint b(a);return b+=o;}
+  const mint operator-(ll o) const {mint b(a);return b-=o;}
+  const mint operator*(ll o) const {mint b(a);return b*=o;}
+  const mint operator/(const mint<M>&o)const{mint b(a);return b/=o;}
+  const mint operator^(ll o) const {mint b(a);return b^=o;}
+
+  inline const mint operator+() const {return *this;}
+  inline const mint operator-() const {return mint(-a);}
 };
 
 template<ll M>ostream&operator<<(ostream&o,const mint<M>&v){return o<<(ll)v;}
