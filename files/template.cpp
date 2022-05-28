@@ -14,16 +14,6 @@ template<typename T>constexpr auto inf=numeric_limits<T>::max()/2;constexpr int 
 #define F first
 #define S second
 #define endl '\n'
-void _print(ostream&){}template<class T,class...U>void _print(ostream&s,const T&t,const U&...u){s<<t<<(sizeof...(u)?' ':'\n');_print(s,u...);}
-template<class...T>void print(const T&...t){_print(cout,t...);}template<class...T>void dprint(const T&...t){_print(cerr,t...);}
-#ifndef LOCAL
-struct osd{template<class T>osd&operator<<(const T&t){return*this;}};osd cer_;
-#define dprint(...)
-#define cerr cer_
-#endif
-#define dbg(x) dprint("@l",__LINE__,':',#x,'=',x)
-#define cho(n,a,b)print((n)?a:b)
-void YES(int n){cho(n,"YES","NO");}void Yes(int n){cho(n,"Yes","No");}void Poss(int n){cho(n,"Possible","Impossible");}
 template<class T, class U>bool chmax(T&a,const U&b){bool x=a<b;x?a=b:b;return x;}template<class T, class U>bool chmin(T&a,const U&b){bool x=a>b;x?a=b:b;return x;}
 template<class T, class U>auto max(const T&a,const U&b){return a<b?b:a;}template<class T, class U>auto min(const T&a,const U&b){return a<b?a:b;}
 template<class T,class U>ostream&operator<<(ostream&o,const pair<T,U>&p){return o<<p.F<<' '<<p.S;}template<class T,class U>istream&operator>>(istream&i,pair<T,U>&p){return i>>p.F>>p.S;}
@@ -39,9 +29,19 @@ template<class T,class U>pair<T,U>&operator+=(pair<T,U>&a, const pair<T,U>&b){a.
 template<class T,class U>pair<T,U>&operator-=(pair<T,U>&a, const pair<T,U>&b){a.F-=b.F;a.S-=b.S;return a;}template<class T,class U>pair<T,U> operator-(const pair<T,U>&a, const pair<T,U>&b){auto r=a;return r-=b;}
 template<class T,class U>pair<T,U> operator-(const pair<T,U>&a){return {-a.F, -a.S};}
 template<class T,class U>double norm(const pair<T,U>&p){return norm(p.F)+norm(p.S);}template<class T,class U>double abs(const pair<T,U>&p){return sqrt(norm(p));}
+void _print(ostream&){}template<class T,class...U>void _print(ostream&s,const T&t,const U&...u){s<<t<<(sizeof...(u)?' ':'\n');_print(s,u...);}
+template<class...T>void print(const T&...t){_print(cout,t...);}template<class...T>void dprint(const T&...t){_print(cerr,t...);}
+#ifndef LOCAL
+struct osd{template<class T>osd&operator<<(const T&t){return*this;}};osd cer_;
+#define dprint(...)
+#define cerr cer_
+#endif
+#define dbg(x) dprint("@l",__LINE__,':',#x,'=',x)
+#define cho(n,a,b)print((n)?a:b)
+void YES(int n){cho(n,"YES","NO");}void Yes(int n){cho(n,"Yes","No");}void Poss(int n){cho(n,"Possible","Impossible");}
 
 int main(){
   cin.tie(0);ios::sync_with_stdio(0);
   cout<<fixed<<setprecision(10);
-  
+
 }
