@@ -36,7 +36,7 @@ struct osd{template<class T>osd&operator<<(const T&t){return*this;}};osd cer_;
 #define dprint(...)
 #define cerr cer_
 #endif
-#define dbg(x) dprint("@l",__LINE__,':',#x,'=',x)
+#define dbg(...) dprint("@l",__LINE__,':',#__VA_ARGS__,'=',__VA_ARGS__)
 #define cho(n,a,b)print((n)?a:b)
 void YES(int n){cho(n,"YES","NO");}void Yes(int n){cho(n,"Yes","No");}void Poss(int n){cho(n,"Possible","Impossible");}
 
